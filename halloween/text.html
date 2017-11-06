@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        html,
+        body,
+        canvas{
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            background: black;
+        }
+        .switch{
+            position: absolute;
+            top: 70%;
+            right: 10%;
+            width: 50px;
+            height: 50px;
+            border-radius: 50px;
+            outline:none;
+            cursor: pointer;
+            animation:switch-animate alternate infinite ease 1s;
+        }
+        @keyframes switch-animate {
+            from {
+              box-shadow: 0 0 30px white;
+            }
+            to {
+              box-shadow:0 0 100px yellow;
+            }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <button id="btn" class="switch">click</button>
+    <script>
+        class Halloween {
+            constructor (id) {
+                this.canvas = getElementById('canvas');
+                this.ctx = this.canvas.getContext('2d');
+                this.w = this.convas.width;
+                this.h = this.convas.height;
+            }
+
+            initDraw (img) {
+                this.w = this.canvas.width = img.width;
+                this.h = this.canvas.height = img.height;
+                this.ctx.drawImage(img,0,0);
+            }
+
+            thunder () {
+                this.drawText();
+                this.lighting();
+                setTimeout(function(){
+                    this.ctx.clearReact(0,0,this.w,this.h)
+                },500)
+            }
+
+            drawText () {
+                this.ctx.font = '60px Verdana';
+                this.ctx.fillStyle = '#ffffff';
+                this.ctx.fillText('万圣节快乐',350,280);
+            }
+        }
+        let halloween = new Halloween('canvas');
+        // 使用id寻找canvas元素
+        let canvas = document.getElementById('canvas');
+        // 创建context对象
+        let context = canvas.getContext('2d');
+        let btn = document.getElementById('btn');
+        btn.addEventListener('click',function() {
+            halloween.thunder();
+        },false)
+        let img = new Image();
+        img.src = './images/halloween.png';
+        img.onload = function(){
+            halloween.initDraw(img);
+        }
+    </script>
+</body>
+</html>
